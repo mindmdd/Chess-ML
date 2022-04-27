@@ -5,7 +5,7 @@ from ChessboardFeature import ChessboardFeature
 import utlis.ImageProcessing as ImageProcessing
 import utlis.SetVariable as SetVariable
 
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+
 def pixel_after_warp(p, matrix):
     px = (matrix[0][0]*p[0] + matrix[0][1]*p[1] + matrix[0][2]) / ((matrix[2][0]*p[0] + matrix[2][1]*p[1] + matrix[2][2]))
     py = (matrix[1][0]*p[0] + matrix[1][1]*p[1] + matrix[1][2]) / ((matrix[2][0]*p[0] + matrix[2][1]*p[1] + matrix[2][2]))
@@ -16,6 +16,8 @@ class ReadBoard():
         self.first_frame = True
 
     def get(self, fname, ml_data):
+
+        alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
         if self.first_frame == True:
             self.color1 = ml_data[0][2]
@@ -68,6 +70,7 @@ class ReadBoard():
 
             warped_color_img, matrix = ImageProcessing.warp_corner(warp_corners, color_img, 640, 640)
             warped_color_contrast_img, matrix = ImageProcessing.warp_corner(warp_corners, color_contrast_img, 640, 640)
+            cv2.imwrite('./images/warp_color.jpg', warped_color_img)
 
             
             mask = np.zeros([640,640], dtype="uint8")
@@ -195,11 +198,10 @@ class ReadBoard():
             cv2.imwrite('images/final_img.jpg', final_img)
             cv2.imshow("final_img", final_img)
 
-            alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
             for index, info in enumerate(ml_data):
                 for alp_index, letter in enumerate(alphabet):
                     if info[3][0] == letter:
-                        cell_num = ((alp_index) + ((int(info[3][1])-1) * 8))
+                        cell_num = (str(alp_index) + str(int(info[3][1])-1))
                         
                 result += str(info[1])+','+ str(info[2])+',' + str(cell_num) +':'
             final_result = result[0:len(result)-1]
