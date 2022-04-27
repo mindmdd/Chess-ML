@@ -201,7 +201,7 @@ class ReadBoard():
             for index, info in enumerate(ml_data):
                 for alp_index, letter in enumerate(alphabet):
                     if info[3][0] == letter:
-                        cell_num = (str(alp_index) + str(int(info[3][1])-1))
+                        cell_num = (str(alp_index) +','+ str(int(info[3][1])-1))
                         
                 result += str(info[1])+','+ str(info[2])+',' + str(cell_num) +':'
             final_result = result[0:len(result)-1]
