@@ -202,8 +202,9 @@ class ReadBoard():
                         cell_num = ((alp_index) + ((int(info[3][1])-1) * 8))
                         
                 result += str(info[1])+','+ str(info[2])+',' + str(cell_num) +':'
-            print (result)
+            final_result = result[0:len(result)-1]
+            print (final_result)
 
-        return result
+        return final_result
 
 
